@@ -10,4 +10,7 @@ public interface TransactionService {
     List<Transaction> getAllTransactionsForTransferor(String TransferorId);
 
     List<Transaction> getAllTransactionsForTransferee(String TransfereeId);
+
+    List<Transaction> getAllTransaction();
+
 }

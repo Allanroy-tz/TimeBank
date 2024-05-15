@@ -4,11 +4,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import vip.wtyz.pojo.OrderList;
+import vip.wtyz.pojo.TimeOrder;
 import vip.wtyz.service.OrderService;
 
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class OrderServiceImplTest {
@@ -40,6 +39,8 @@ class OrderServiceImplTest {
 
     @Test
     void addOrder() {
+        TimeOrder timeOrder = new TimeOrder(null, "123321", "ooo", null, "2222", 100, "---------", "2024-10-20 10:20", "-2");
+        System.out.println(orderService.addOrder(timeOrder));
     }
 
     @Test

@@ -13,4 +13,6 @@ public interface UserService {
     boolean insertUser(User user);
 
     boolean deleteUser(String OpenId);
+
+    User userLogin(String code);
 }

@@ -1,11 +1,12 @@
 package vip.wtyz.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
+import vip.wtyz.Utilities.ResultVO;
 import vip.wtyz.pojo.User;
 import vip.wtyz.service.UserService;
+
+import java.util.List;
 
 @CrossOrigin
 @RestController
@@ -13,20 +14,29 @@ import vip.wtyz.service.UserService;
 public class UserController {
     @Autowired
     UserService userService;
-    @Autowired
-    private RestTemplate restTemplate;
 
-    public String fetchData(String code) {
-        String url = "https://api.weixin.qq.com/sns/jscode2session";
-        return restTemplate.getForObject(url, String.class);
-    }
 
     @PostMapping("/login")
-    User login(@RequestBody String code) {
-        String OpenData = fetchData(code);
-        User user = null;
-        userService.insertUser(user);
-        return null;
+    ResultVO Login(@RequestBody String code) {
+        User user = userService.userLogin(code);
+        return new ResultVO("200", user);
     }
 
+    @GetMapping("/getUserById")
+    ResultVO GetUserById(@RequestParam String OpenId) {
+        User user = userService.getUserById(OpenId);
+        return new ResultVO("200", user);
+    }
+
+    @GetMapping("/getAllUsers")
+    ResultVO GetAllUsers() {
+        List<User> allUsers = userService.getAllUsers();
+        return new ResultVO("200", allUsers);
+    }
+
+    @PostMapping("/insertUser")
+    ResultVO InsertUser(@RequestBody User user) {
+        boolean flag = userService.insertUser(user);
+        return new ResultVO(flag ? "200" : "201", flag ? "添加成功" : "添加失败");
+    }
 }

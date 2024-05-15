@@ -21,4 +21,7 @@ public interface OrderService {
 
     boolean updateOrder(TimeOrder timeOrder);
 
+    boolean changeOrderState(Integer orderId, String state);
+
+    List<TimeOrder> getAllOrderListByState(String state);
 }

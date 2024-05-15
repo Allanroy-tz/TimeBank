@@ -1,12 +1,13 @@
 package vip.wtyz.pojo;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 
 @Data
 public class OrderList {
     //    发布者数据
-    @TableId(value = "OrderId")
+    @TableId(value = "OrderId", type = IdType.AUTO)
     Integer OrderId;
     String OpenId;
     String UserName;

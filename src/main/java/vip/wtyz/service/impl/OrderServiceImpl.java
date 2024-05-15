@@ -18,7 +18,7 @@ public class OrderServiceImpl implements OrderService {
     OrderMapper orderMapper;
     @Autowired
     OrderListMapper orderListMapper;
-    QueryWrapper<TimeOrder> queryWrapper = new QueryWrapper<>();
+
 
     @Override
     public List<TimeOrder> getAllOrders() {
@@ -27,8 +27,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<TimeOrder> getAllOrdersExceptUser(String OpenId) {
-
-        return orderMapper.selectList(queryWrapper.ne("OpenId", OpenId));
+        QueryWrapper<TimeOrder> queryWrapper = new QueryWrapper<>();
+        return orderMapper.selectList(queryWrapper.ne("OpenId", OpenId).eq("OrderState", "0").isNull("AcceptOpenId"));
     }
 
     @Override
@@ -44,6 +44,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public boolean addOrder(TimeOrder timeOrder) {
+
+        timeOrder.setOrderState("-1");
+        timeOrder.setOrderId(null);
         return orderMapper.insert(timeOrder) > 0;
     }
 
@@ -55,5 +58,19 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public boolean updateOrder(TimeOrder timeOrder) {
         return orderMapper.updateById(timeOrder) > 0;
+    }
+
+    @Override
+    public boolean changeOrderState(Integer orderId, String state) {
+        TimeOrder timeOrder = new TimeOrder();
+        timeOrder.setOrderId(orderId);
+        timeOrder.setOrderState(state);
+        return orderMapper.updateById(timeOrder) > 0;
+    }
+
+    @Override
+    public List<TimeOrder> getAllOrderListByState(String state) {
+        QueryWrapper<TimeOrder> queryWrapper = new QueryWrapper<>();
+        return orderMapper.selectList(queryWrapper.eq("OrderState", state));
     }
 }
