@@ -37,7 +37,8 @@ public class TimeOrder {
     @JsonProperty("DateTime")
     String DateTime;
     /**
-     * -2：审核未通过-
+     * -3：已取消
+     * -2：审核未通过
      * -1：待审核
      * 0：待接单
      * 1：已接单

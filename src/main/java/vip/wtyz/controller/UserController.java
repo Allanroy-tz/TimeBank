@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import vip.wtyz.Utilities.ResultVO;
 import vip.wtyz.pojo.User;
+import vip.wtyz.pojo.UserInfo;
 import vip.wtyz.service.UserService;
 
 import java.util.List;
@@ -17,8 +18,9 @@ public class UserController {
 
 
     @PostMapping("/login")
-    ResultVO Login(@RequestBody String code) {
-        User user = userService.userLogin(code);
+    ResultVO Login(@RequestBody UserInfo userInfo) {
+        User user = userService.userLogin(userInfo);
+        System.out.println(user);
         return new ResultVO("200", user);
     }
 

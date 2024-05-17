@@ -7,6 +7,7 @@ import vip.wtyz.pojo.Transaction;
 import vip.wtyz.service.TransactionService;
 
 @RestController
+@CrossOrigin
 @RequestMapping("transaction")
 public class TransactionController {
     @Autowired

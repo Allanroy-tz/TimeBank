@@ -18,8 +18,11 @@ public class OrderController {
     @PostMapping("/addOrder")
     ResultVO AddOrder(@RequestBody TimeOrder timeOrder) {
         ResultVO resultVO = new ResultVO("200", null);
-        if (!orderService.addOrder(timeOrder))
+        if (!orderService.addOrder(timeOrder)) {
             resultVO.setCode("500");
+            resultVO.setData("添加失败");
+        }
+        resultVO.setData("添加成功");
         System.out.println(timeOrder.toString());
         return resultVO;
     }

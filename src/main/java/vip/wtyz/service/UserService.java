@@ -1,6 +1,7 @@
 package vip.wtyz.service;
 
 import vip.wtyz.pojo.User;
+import vip.wtyz.pojo.UserInfo;
 
 import java.util.List;
 
@@ -14,5 +15,5 @@ public interface UserService {
 
     boolean deleteUser(String OpenId);
 
-    User userLogin(String code);
+    User userLogin(UserInfo userInfo);
 }

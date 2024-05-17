@@ -11,7 +11,7 @@ import lombok.Data;
 @Data
 public class Transaction {
     @TableId(value = "TransactionId", type = IdType.AUTO)
-    String TransactionId;
+    Integer TransactionId;
     @TableField("TransferorId")
     @JsonProperty(value = "TransferorId")
     String TransferorId;
