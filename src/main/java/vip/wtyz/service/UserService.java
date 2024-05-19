@@ -16,4 +16,8 @@ public interface UserService {
     boolean deleteUser(String OpenId);
 
     User userLogin(UserInfo userInfo);
+
+    Integer getTimeCredit(String OpenId);
+
+    Long getAllUserAmount();
 }

@@ -28,17 +28,37 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<TimeOrder> getAllOrdersExceptUser(String OpenId) {
         QueryWrapper<TimeOrder> queryWrapper = new QueryWrapper<>();
-        return orderMapper.selectList(queryWrapper.ne("OpenId", OpenId).eq("OrderState", "0").isNull("AcceptOpenId"));
+        return orderMapper.selectList(queryWrapper.ne("OpenId", OpenId).eq("OrderState", "0"));
     }
 
     @Override
     public List<OrderList> getAllOrderListForUser(String OpenId) {
-        return orderListMapper.GetAllOrderListByOpenId(OpenId);
+        List<OrderList> orderLists = orderListMapper.GetAllOrderListByOpenId(OpenId);
+        // 0 1 -1 2 -2  -3
+        orderLists.sort((o1, o2) -> {
+            int v1 = Integer.parseInt(o1.getOrderState());
+            int v2 = Integer.parseInt(o2.getOrderState());
+            if (v1 != v2) {
+                if (Math.abs(v1) != Math.abs(v2)) return Math.abs(v1) - Math.abs(v2);
+                else return v2 - v1;
+            }
+            return o1.getDateTime().compareTo(o2.getDateTime());
+        });
+        return orderLists;
     }
 
     @Override
     public List<OrderList> getAllAcceptedOrderListForUser(String AcceptOpenId) {
-        return orderListMapper.GetAllOrderListByAcceptOpenId(AcceptOpenId);
+        List<OrderList> orderLists = orderListMapper.GetAllOrderListByAcceptOpenId(AcceptOpenId);
+        orderLists.sort((o1, o2) -> {
+            int v1 = Integer.parseInt(o1.getOrderState());
+            int v2 = Integer.parseInt(o2.getOrderState());
+            if (v1 != v2) {
+                return v1 - v2;
+            }
+            return o1.getDateTime().compareTo(o2.getDateTime());
+        });
+        return orderLists;
     }
 
 
@@ -72,5 +92,19 @@ public class OrderServiceImpl implements OrderService {
     public List<TimeOrder> getAllOrderListByState(String state) {
         QueryWrapper<TimeOrder> queryWrapper = new QueryWrapper<>();
         return orderMapper.selectList(queryWrapper.eq("OrderState", state));
+    }
+
+    @Override
+    public boolean acceptOrder(Integer OrderId, String AcceptOpenId) {
+        TimeOrder timeOrder = new TimeOrder();
+        timeOrder.setOrderState("1");
+        timeOrder.setAcceptOpenId(AcceptOpenId);
+        timeOrder.setOrderId(OrderId);
+        return orderMapper.updateById(timeOrder) > 0;
+    }
+
+    @Override
+    public Long getAllOrderAmount() {
+        return orderMapper.selectCount(null);
     }
 }

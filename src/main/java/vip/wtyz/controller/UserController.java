@@ -41,4 +41,15 @@ public class UserController {
         boolean flag = userService.insertUser(user);
         return new ResultVO(flag ? "200" : "201", flag ? "添加成功" : "添加失败");
     }
+
+    @GetMapping("/getTimeCredits")
+    ResultVO GetTimeCredits(@RequestParam String OpenId) {
+        Integer timeCredit = userService.getTimeCredit(OpenId);
+        return new ResultVO("200", timeCredit);
+    }
+
+    @GetMapping("/getAllUserAmount")
+    ResultVO getAllUserAmount() {
+        return new ResultVO("200", userService.getAllUserAmount());
+    }
 }

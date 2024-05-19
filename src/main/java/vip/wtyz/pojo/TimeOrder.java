@@ -43,6 +43,8 @@ public class TimeOrder {
      * 0：待接单
      * 1：已接单
      * 2：已完成
+     * <p>
+     * 1 2
      */
     @TableField("OrderState")
     @JsonProperty("OrderState")

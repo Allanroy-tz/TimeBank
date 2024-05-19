@@ -36,4 +36,14 @@ public class User {
         this.AccountPassword = accountPassword;
         this.TimeCredits = timeCredits;
     }
+
+    public Integer AddTimeCredits(Integer TimeCredits) {
+        this.TimeCredits += TimeCredits;
+        return this.TimeCredits;
+    }
+
+    public Integer reduceTimeCredits(Integer TimeCredits) {
+        this.TimeCredits -= TimeCredits;
+        return this.TimeCredits;
+    }
 }

@@ -12,21 +12,36 @@ import lombok.Data;
 public class Transaction {
     @TableId(value = "TransactionId", type = IdType.AUTO)
     Integer TransactionId;
+    /**
+     * 转让者
+     */
     @TableField("TransferorId")
     @JsonProperty(value = "TransferorId")
     String TransferorId;
 
-    public Transaction(String transferorId, String transfereeId, Integer transferAmount) {
+    public Transaction(Integer transactionId, String transferorId, String transfereeId, Integer orderId, Integer transferAmount) {
+        TransactionId = transactionId;
         TransferorId = transferorId;
         TransfereeId = transfereeId;
+        OrderId = orderId;
         TransferAmount = transferAmount;
     }
 
+    /**
+     * 被转让者
+     */
     @TableField("TransfereeId")
     @JsonProperty(value = "TransfereeId")
     String TransfereeId;
+
+
+    @TableField("OrderId")
+    @JsonProperty(value = "OrderId")
+    Integer OrderId;
     @TableField("TransferAmount")
     @JsonProperty(value = "TransferAmount")
-
-    Integer TransferAmount;
+    /**
+     * 转账时间额度
+     */
+            Integer TransferAmount;
 }

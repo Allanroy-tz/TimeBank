@@ -13,4 +13,9 @@ public interface TransactionService {
 
     List<Transaction> getAllTransaction();
 
+    boolean transferTimeSpent(String transferee, String transferor, int timeSpent);
+
+    Transaction getTransactionByOrderId(String OrderId);
+
+    Long getAllTransactionAmount();
 }

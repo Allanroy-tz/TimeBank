@@ -33,5 +33,8 @@ public class TransactionController {
         boolean flag = transactionService.addTransaction(transaction);
 
         return new ResultVO(flag ? "200" : "201", flag ? "交易成功" : "交易失败");
+//        Integer flag=transaction.getTransferAmount()+1;
+//        System.out.println(transaction.getTransferAmount()+":::"+flag.toString());
+//        return new ResultVO("","test");
     }
 }

@@ -19,7 +19,7 @@ public class OrderController {
     ResultVO AddOrder(@RequestBody TimeOrder timeOrder) {
         ResultVO resultVO = new ResultVO("200", null);
         if (!orderService.addOrder(timeOrder)) {
-            resultVO.setCode("500");
+            resultVO.setCode("201");
             resultVO.setData("添加失败");
         }
         resultVO.setData("添加成功");
@@ -30,8 +30,7 @@ public class OrderController {
     @GetMapping("/getOrderList")
     ResultVO GetOrderList() {
         List<TimeOrder> allOrders = orderService.getAllOrders();
-        ResultVO resultVO = new ResultVO("200", allOrders);
-        return resultVO;
+        return new ResultVO("200", allOrders);
     }
 
     @GetMapping("/changeOrderState")
@@ -74,5 +73,12 @@ public class OrderController {
         if (orderService.updateOrder(timeOrder))
             return new ResultVO("200", "更新成功");
         else return new ResultVO("201", "更新失败");
+    }
+
+    @GetMapping("acceptOrder")
+    ResultVO AcceptOrder(@RequestParam Integer OrderId, @RequestParam String AcceptOpenId) {
+        if (orderService.acceptOrder(OrderId, AcceptOpenId))
+            return new ResultVO("200", "接受成功");
+        else return new ResultVO("201", "接受失败");
     }
 }

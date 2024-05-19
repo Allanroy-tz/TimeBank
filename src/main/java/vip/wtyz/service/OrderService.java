@@ -24,4 +24,8 @@ public interface OrderService {
     boolean changeOrderState(Integer orderId, String state);
 
     List<TimeOrder> getAllOrderListByState(String state);
+
+    boolean acceptOrder(Integer OrderId, String AcceptOpenId);
+
+    Long getAllOrderAmount();
 }
