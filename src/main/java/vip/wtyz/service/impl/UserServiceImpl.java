@@ -49,7 +49,15 @@ public class UserServiceImpl implements UserService {
     public String fetchData(String code) {
         String url = "https://api.weixin.qq.com/sns/jscode2session?appid=" + AppConfigInfo.getAppid() + "&secret=" + AppConfigInfo.getSecret() + "&js_code=" + code + "&grant_type=authorization_code ";
         ResponseEntity<String> result = restTemplate.getForEntity(url, String.class);
-        return "0000000";
+        System.out.println(result.getBody());
+        String s = result.getBody();
+        int idx = s.indexOf("openid");
+        idx += 8;
+        int idx2 = idx;
+        while (s.charAt(++idx2) != '"') ;
+        String substring = s.substring(idx, idx2 + 1);
+        System.out.println("substring = " + substring);
+        return substring;
     }
 
     @Override
@@ -63,6 +71,7 @@ public class UserServiceImpl implements UserService {
         if (flag == 0) {
             User user = new User(OpenId, userInfo.getName(), "18711857372", "222222222", "3333333333", 1000);
             userMapper.insert(user);
+            return user;
         }
         return userMapper.selectById(OpenId);
     }

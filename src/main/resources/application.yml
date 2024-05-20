@@ -2,9 +2,9 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
-    url: jdbc:mysql://localhost:3306/timebank
-    username: root
-    password: "tz777700"
+    url: jdbc:mysql://120.26.36.73:3306/timebank
+    username: TimeBank
+    password: "6r5mfxucqch82kape4a7"
 
 server:
   port: 8080
